@@ -1,5 +1,7 @@
 package com.n26.exercise.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -48,15 +50,14 @@ public class TransactionServiceImpl implements TransactionService {
     private boolean precomputeData(Transaction transaction) {
 		/* As System.currentTimeMillis returns milliseconds elapsed in UTC */
 		long currentTime = System.currentTimeMillis();
-		// seconds elapsed till transaction was done
-		int second = (int) ((currentTime - transaction.getTimestamp()) / MILLISECONDS_IN_SECOND);
-		logger.info(transaction + " second elapsed = " + second);
+		int currentSecond = Calendar.getInstance().get(Calendar.SECOND);
+		logger.info(transaction + ", time of transaction : "+new Date(transaction.getTimestamp()));
 		// check if transaction is done in last 60 seconds, if yes create a statistics
 		// detail object for that second and store in map
-		if (second <= LAST_SECONDS) {
+		if (((currentTime - transaction.getTimestamp()) / MILLISECONDS_IN_SECOND) <= LAST_SECONDS) {
 			// below compute function is added to add thread safety as traditional way of of checking if entry exist in map then update or add 
 			// had a race condition.
-			statisticsMap.compute(second, (key, statistics) -> {
+			statisticsMap.compute(currentSecond, (key, statistics) -> {
 				if (statistics == null || (currentTime - statistics.getTimestamp()) / MILLISECONDS_IN_SECOND > LAST_SECONDS) {
 					statistics = new TransactionStatistics();
 					statistics.setTimestamp(transaction.getTimestamp());
@@ -79,7 +80,6 @@ public class TransactionServiceImpl implements TransactionService {
 		return false;
 	}
 
-	@Override
 	public TransactionStatistics getTransctionStatistics() {
 		TransactionStatistics summary = new TransactionStatistics();
 		long currentTime = System.currentTimeMillis();
@@ -104,5 +104,5 @@ public class TransactionServiceImpl implements TransactionService {
 		logger.info("Summary Statistics  - " + summary);
 		return summary;
 	}
-
+ 
 }
