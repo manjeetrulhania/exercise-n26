@@ -24,7 +24,7 @@ Spring boot
 NOTE - please change server port or context path in step 2 as well if required.
 
 Tomcat
-1. Go to project directory (exercise-n26 directory)
+1. Go to project directory (exercise-n26 directory).
 2. mvn clean package -P tomcat (please change server port if 8080 is already in use, as spring boot integration test will run on embedded tomcat)
 3. deploy exercise-n26.war in your tomcat instance.
 4. Post a transaction to URL - http://localhost:8080/transactions
