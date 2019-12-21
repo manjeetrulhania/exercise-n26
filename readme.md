@@ -30,7 +30,7 @@ Tomcat
 4. Post a transaction to URL - http://localhost:8080/transactions
 
 
-Why Springboot
+Why Spring Boot
 -------------------------------------------------------------	
 1. Springboot provides quick way to develop application without any boiler plate configuration code.
 2. Provides quick and fast way to test and deploy application in embedded container or databases if required.
