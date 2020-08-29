@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/manjeetrulhania/testproject/_apis/build/status/rulhaniam.exercise-n26?branchName=master)](https://dev.azure.com/manjeetrulhania/testproject/_build/latest?definitionId=1&branchName=master)
+
 Transaction Statistics Service
 
 We would like to have a restful API for our statistics. The main use case for our API is to calculate realtime statistic from the last 60 seconds. 
